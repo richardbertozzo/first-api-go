@@ -30,30 +30,25 @@ func Routes() *chi.Mux {
 
 func getAnimals(w http.ResponseWriter, r *http.Request) {
 	channelDog := make(chan string)
-	go getDog(channelDog)
-	dog := Animal{
-		Name: "Dog",
-		Img:  <-channelDog,
-	}
-
 	channelCat := make(chan string)
-	go getCat(channelCat)
-	cat := Animal{
-		Name: "Cat",
-		Img:  <-channelCat,
-	}
-
 	channelFox := make(chan string)
+	go getDog(channelDog)
+	go getCat(channelCat)
 	go getFox(channelFox)
-	fox := Animal{
-		Name: "Fox",
-		Img:  <-channelFox,
-	}
 
 	animals := []Animal{
-		dog,
-		cat,
-		fox,
+		Animal{
+			Name: "Dog",
+			Img:  <-channelDog,
+		},
+		Animal{
+			Name: "Cat",
+			Img:  <-channelCat,
+		},
+		Animal{
+			Name: "Fox",
+			Img:  <-channelFox,
+		},
 	}
 
 	render.JSON(w, r, animals) // A chi router helper for serializing and returning json
