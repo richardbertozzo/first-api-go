@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"first-api-go/animals"
-	"first-api-go/config"
+	"github.com/richardbertozzo/first-api-go/animals"
+	"github.com/richardbertozzo/first-api-go/config"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
