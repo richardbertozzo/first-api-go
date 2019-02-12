@@ -5,9 +5,9 @@ Example of API in Golang
 ## Getting started
 
 ### To Run
-Create `config.json` like `config-example.json`
+Create `config.toml` like `config-example.toml`
 
 ```shell
-go get
+go get ./...
 go run main.go
 ```
