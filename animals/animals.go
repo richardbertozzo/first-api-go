@@ -29,16 +29,37 @@ func Routes() *chi.Mux {
 }
 
 func getAnimals(w http.ResponseWriter, r *http.Request) {
+	channelDog := make(chan string)
+	go getDog(channelDog)
+	dog := Animal{
+		Name: "Dog",
+		Img:  <-channelDog,
+	}
+
+	channelCat := make(chan string)
+	go getCat(channelCat)
+	cat := Animal{
+		Name: "Cat",
+		Img:  <-channelCat,
+	}
+
+	channelFox := make(chan string)
+	go getFox(channelFox)
+	fox := Animal{
+		Name: "Fox",
+		Img:  <-channelFox,
+	}
+
 	animals := []Animal{
-		*getDog(),
-		*getCat(),
-		*getFox(),
+		dog,
+		cat,
+		fox,
 	}
 
 	render.JSON(w, r, animals) // A chi router helper for serializing and returning json
 }
 
-func getDog() *Animal {
+func getDog(chanDog chan string) {
 	type DogResponse struct {
 		Status string `json:"status"`
 		Link   string `json:"message"`
@@ -48,13 +69,10 @@ func getDog() *Animal {
 	response := getResponse(API_DOG)
 	json.Unmarshal(response, &dogResponse)
 
-	return &Animal{
-		Name: "Dog",
-		Img:  dogResponse.Link,
-	}
+	chanDog <- dogResponse.Link
 }
 
-func getCat() *Animal {
+func getCat(chanCat chan string) {
 	type CatResponse struct {
 		Link string `json:"file"`
 	}
@@ -63,13 +81,10 @@ func getCat() *Animal {
 	response := getResponse(API_CAT)
 	json.Unmarshal(response, &catResponse)
 
-	return &Animal{
-		Name: "Cat",
-		Img:  catResponse.Link,
-	}
+	chanCat <- catResponse.Link
 }
 
-func getFox() *Animal {
+func getFox(chanFox chan string) {
 	type FoxResponse struct {
 		Image string `json:"image"`
 		Link  string `json:"link"`
@@ -79,10 +94,7 @@ func getFox() *Animal {
 	response := getResponse(API_FOX)
 	json.Unmarshal(response, &foxResponse)
 
-	return &Animal{
-		Name: "Fox",
-		Img:  foxResponse.Image,
-	}
+	chanFox <- foxResponse.Image
 }
 
 func getResponse(url string) []byte {
