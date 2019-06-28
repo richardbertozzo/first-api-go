@@ -16,3 +16,6 @@ config.toml
 
 # IDE
 .vscode
+
+# Build
+first-api-go
