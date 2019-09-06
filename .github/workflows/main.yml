@@ -1,7 +1,5 @@
-name: Build
-
+name: Build and test Go
 on: [push, pull_request]
-
 jobs:
   build:
     name: Build
@@ -15,11 +13,11 @@ jobs:
       - name: Check out source code
         uses: actions/checkout@v1
 
-			# only for projects using Go modules
-			- name: Download Go dependencies
-				env:
-					GOPROXY: "https://proxy.golang.org"
-				run: go mod download
+      # only for projects using Go modules
+      - name: Download Go dependencies
+        env:
+	  GOPROXY: "https://proxy.golang.org"
+	run: go mod download
 
       - name: Build
         run: go build .
