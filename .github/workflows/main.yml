@@ -15,7 +15,7 @@ jobs:
 
       # only for projects using Go modules
       - name: Download Go dependencies
-	      run: go mod download
+        run: go mod download
 
       - name: Build
         run: go build .
