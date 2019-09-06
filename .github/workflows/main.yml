@@ -15,8 +15,6 @@ jobs:
 
       # only for projects using Go modules
       - name: Download Go dependencies
-        env:
-	        GOPROXY: "https://proxy.golang.org"
 	      run: go mod download
 
       - name: Build
