@@ -39,15 +39,15 @@ func getAnimals(w http.ResponseWriter, r *http.Request) {
 	go getFox(channelFox)
 
 	animals := []Animal{
-		Animal{
+		{
 			Name: "Dog",
 			Img:  <-channelDog,
 		},
-		Animal{
+		{
 			Name: "Cat",
 			Img:  <-channelCat,
 		},
-		Animal{
+		{
 			Name: "Fox",
 			Img:  <-channelFox,
 		},
