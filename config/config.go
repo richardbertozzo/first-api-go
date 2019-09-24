@@ -2,14 +2,17 @@ package config
 
 import "github.com/spf13/viper"
 
+// Constants the envitoments constants
 type Constants struct {
 	PORT string
 }
 
+// Config represent the struct with all server configs
 type Config struct {
 	Constants
 }
 
+// New init all configs
 func New() (*Config, error) {
 	config := Config{}
 	constants, err := initViper()

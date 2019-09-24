@@ -12,14 +12,14 @@ import (
 	"github.com/go-chi/render"
 )
 
-func Routes(config *config.Config) *chi.Mux {
+func routes(config *config.Config) *chi.Mux {
 	router := chi.NewRouter()
 	router.Use(
 		render.SetContentType(render.ContentTypeJSON), // Set content-Type headers as application/json
-		middleware.Logger,                             // Log API request calls
-		middleware.DefaultCompress,                    // Compress results, mostly gzipping assets and json
-		middleware.RedirectSlashes,                    // Redirect slashes to no slash URL versions
-		middleware.Recoverer,                          // Recover from panics without crashing server
+		middleware.Logger,          // Log API request calls
+		middleware.DefaultCompress, // Compress results, mostly gzipping assets and json
+		middleware.RedirectSlashes, // Redirect slashes to no slash URL versions
+		middleware.Recoverer,       // Recover from panics without crashing server
 	)
 
 	router.Route("/v1", func(r chi.Router) {
@@ -34,7 +34,7 @@ func main() {
 	if err != nil {
 		log.Panicln("Configuration error", err)
 	}
-	router := Routes(configuration)
+	router := routes(configuration)
 
 	walkFunc := func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
 		log.Printf("%s %s\n", method, route) // Walk and print out all routes

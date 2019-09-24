@@ -11,16 +11,18 @@ import (
 )
 
 const (
-	API_DOG = "https://dog.ceo/api/breeds/image/random"
-	API_CAT = "https://aws.random.cat/meow"
-	API_FOX = "https://randomfox.ca/floof/"
+	apiDog = "https://dog.ceo/api/breeds/image/random"
+	apiCat = "https://aws.random.cat/meow"
+	apiFox = "https://randomfox.ca/floof/"
 )
 
+// Animal represents an animal
 type Animal struct {
 	Name string `json:"name"`
 	Img  string `json:"img"`
 }
 
+// Routes make the routes of package
 func Routes() *chi.Mux {
 	router := chi.NewRouter()
 	router.Get("/", getAnimals)
@@ -61,7 +63,7 @@ func getDog(chanDog chan string) {
 	}
 
 	var dogResponse DogResponse
-	response := getResponse(API_DOG)
+	response := getResponse(apiDog)
 	json.Unmarshal(response, &dogResponse)
 
 	chanDog <- dogResponse.Link
@@ -73,7 +75,7 @@ func getCat(chanCat chan string) {
 	}
 
 	var catResponse CatResponse
-	response := getResponse(API_CAT)
+	response := getResponse(apiCat)
 	json.Unmarshal(response, &catResponse)
 
 	chanCat <- catResponse.Link
@@ -86,7 +88,7 @@ func getFox(chanFox chan string) {
 	}
 
 	var foxResponse FoxResponse
-	response := getResponse(API_FOX)
+	response := getResponse(apiFox)
 	json.Unmarshal(response, &foxResponse)
 
 	chanFox <- foxResponse.Image
