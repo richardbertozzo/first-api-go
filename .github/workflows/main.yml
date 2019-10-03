@@ -23,4 +23,6 @@ jobs:
       - name: Test
         env:
           TEST_KEY: ${{ secrets.TEST_KEY }}
-        run: echo Hello "$TEST_KEY"
+          NAME: Richard
+        run: |
+          echo $NAME $TEST_KEY
