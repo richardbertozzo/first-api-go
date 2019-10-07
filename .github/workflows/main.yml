@@ -19,10 +19,3 @@ jobs:
 
       - name: Build
         run: go build .
-      
-      - name: Test
-        env:
-          TEST_KEY: ${{ secrets.TEST_KEY }}
-          NAME: Richard
-        run: |
-          echo $NAME $TEST_KEY
