@@ -1,6 +1,6 @@
 # Accept the Go version for the image to be set as a build argument.
 # Default to Go 1.12.5
-ARG GO_VERSION=1.12.5
+ARG GO_VERSION=1.13.1
 
 # BUILD STAGE
 FROM golang:${GO_VERSION}-alpine as builder
